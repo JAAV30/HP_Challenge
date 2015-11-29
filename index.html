@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html data-ng-app="AppGame">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style1.css">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	
+</head>
+
+<body ng-controller="gameController">
+
+   <div class="page-header"> 
+	<h3>HP Challenge - Rock, Paper, Scissors</h3>
+
+   </div>
+   
+   <div class="container">
+
+        <div id="roundHeader"><h3> ROUND {{ round }} </h3></div>
+        <div id="barra">
+            <h2 id="roundHeader">TOP 10</h2>
+            <table class="table table-hover">
+            <thead>
+                <tr class="info">
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Championships</th>
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr data-ng-repeat="t in table | orderBy: '-championships' | limitTo:10 ">
+                    <td>{{ t.name }}</td>
+                    <td>{{ t.championships}}</td>
+                </tr>    
+            </tbody>
+       </table> 
+
+    </div> 
+        <div class="span7 text-center">
+        <div class="form-group">
+            <div id="combo">
+            <div class="col-sm-2">
+                <select class="form-control" ng-change="setFile(seleccion)" ng-model="seleccion" ng-options="opc.nombre as opc.nombre for opc in archivos" ng-change="setFile()">
+                </select>                                              
+            </div>
+            </div>
+            <button class="btn btn-success" ng-click="matchGenerator()">Generate matches</button>
+        </div>
+       </div>
+       <table class="table table-hover">
+            <thead>
+                <tr class="info">
+                    <th class="text-center">Player 1</th>
+                    <th class="text-center">Player 2</th>
+                    <th class="text-center">Winner</th>  
+                    <th class="text-center">Play Match</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr data-ng-repeat="match in matches">
+                    <td>{{ match.player1.name }}</td>
+                    <td>{{ match.player2.name }}</td>
+                    <td>{{ match.winner }}</td>  
+                    <td >
+                        <button class="btn btn-success" ng-click="modalMatch(match.matchID)">GO</button>
+                    </td>
+                </tr>    
+            </tbody>
+       </table> 
+        <div id="btnGen" class="span7 text-center">
+            <button class="btn btn-success" ng-click="nextRound()">Next Round</button>
+        </div>
+
+
+        <!-- MODAL MATCH-->
+        <div id="modalMatch" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">                                            
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h2 class="span7 text-center" id="myModalLabel"> Match</h2>
+                    </div>
+                        <div class="modal-body"> 
+                            <table class="table table-hover">
+                                <thead>
+               
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <td> <h3 class="modal-title">{{ name1 }} </h3> </td>
+                                    <td> <h3 class="modal-title">{{ name2 }} </h3> </td>
+                                    </tr>
+                                    <tr>    
+                                    <td><img ng-src="{{ src1 }}"/></td> 
+                                    <td><img ng-src="{{ src2 }}"/></td> 
+                                    </tr>
+                                </tbody>
+
+                            </table>                                        
+                                                        
+                        </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+
+                        <button data-dismiss="modal" class="btn btn-success" id="confirm"> 
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>                                           
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+          <!-- END MODAL MATCH -->
+
+          <!-- MODAL CHAMPION-->
+          <div id="modalChampion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">                                            
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h2 class="span7 text-center" id="myModalLabel"> CHAMPION</h2>
+                    </div>
+                        <div class="modal-body"> 
+                            <table class="table table-hover">
+                                
+                                <tbody>
+                                    <tr>
+                                    <td> <h3 class="modal-title">{{ matches[0].winner }} </h3> </td>
+                                    
+                                    </tr>
+                                    <tr>    
+                                    <td><img ng-src="{{ trophy }}"/></td> 
+                                    
+                                    </tr>
+                                </tbody>
+
+                            </table>                                        
+                                                        
+                        </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+
+                        <button data-dismiss="modal" class="btn btn-success" id="confirm"> 
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>                                           
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL CHAMPION-->
+    </div>
+    
+    
+    
+</body>
+
+<footer>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js" ></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    
+	<script src="js/modules/Game.js"></script>
+	
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</footer>
+
+</html>

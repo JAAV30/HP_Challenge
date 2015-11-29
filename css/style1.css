@@ -1,0 +1,49 @@
+div.page-header{
+	background-color: #0070d3;
+	text-align:center;
+	color: #d6d6d6;
+	padding: 10px;
+	margin-top: 0px;
+	margin-right:0px; 
+	margin-left: 0px;
+	margin-bottom: 0px;
+
+}
+
+table {
+	text-align:center;
+	margin-top: 50px;
+}
+
+#btnGen{
+	margin:0px;
+	border: 0px;
+	padding: 0px;
+	margin-top: 50px;
+	margin-right:0px; 
+	margin-left: 0px;
+	margin-bottom: 0px;
+}
+
+#roundHeader{
+	margin:0px;
+	border: 0px;
+	padding: 0px;
+	margin-top: 50px;
+	margin-right:0px; 
+	margin-left: 0px;
+	margin-bottom: 0px;
+	text-align:center;
+
+}
+
+#barra{
+	margin-top: -48px;
+	margin-left: -300px;
+	margin-right: 2000px;
+	position:absolute; 
+}
+#combo{
+	margin-left: 270px;
+}
+
